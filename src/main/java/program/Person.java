@@ -1,3 +1,5 @@
+package program;
+
 public class Person {
     private String navn;
     private int alder;
