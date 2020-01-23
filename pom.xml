@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>org.openjfx.MainApp</mainClass>
+        <mainClass>program.MainApp</mainClass>
     </properties>
 
     <organization>
