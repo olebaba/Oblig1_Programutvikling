@@ -2,26 +2,22 @@ package program.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Window;
 
-import java.io.*;
+import java.io.File;
 
 public class MainAppController {
-    @FXML
-    private Label navn;
-    @FXML
-    private Label alder;
-    @FXML
-    private Label fodselsdato;
-    @FXML
-    private Label epost;
-    @FXML
-    private Label nummer;
+
+   /* @FXML
+    private Label label;
+
+    public void initialize() {
+        // TODO
+        label.setText("heiiii");
+    }*/
     @FXML
     private MenuItem apneFil;
     @FXML
