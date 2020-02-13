@@ -3,6 +3,8 @@ package program.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Window;
@@ -10,14 +12,20 @@ import javafx.stage.Window;
 import java.io.*;
 
 public class MainAppController {
+    @FXML
+    private TextField navn;
+   @FXML
+    private TextField alder;
+   @FXML
+    private TextField fodselsdato;
+   @FXML
+    private TextField epost;
+   @FXML
+    private TextField nummer;
 
-   /* @FXML
-    private Label label;
 
-    public void initialize() {
-        // TODO
-        label.setText("heiiii");
-    }*/
+    @FXML
+    private AnchorPane anchorpane;
     @FXML
     private MenuItem apneFil;
     @FXML
