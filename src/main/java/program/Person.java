@@ -3,6 +3,7 @@ package program;
 import program.Exceptions.InvalidAgeException;
 
 public class Person {
+
     private String navn;
     private int alder;
     private int fødselsdag;
