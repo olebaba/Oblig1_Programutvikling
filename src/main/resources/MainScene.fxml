@@ -17,7 +17,9 @@
       </Label>
       <TextField fx:id="navn" layoutX="299.0" layoutY="110.0" />
       <TextField fx:id="alder" layoutX="299.0" layoutY="145.0" />
-      <TextField fx:id="fodselsdato" layoutX="299.0" layoutY="188.0" />
+      <TextField fx:id="fodselsdag" layoutX="299.0" layoutY="188.0" prefHeight="25.0" prefWidth="35.0" />
+       <TextField fx:id="fodselsmnd" layoutX="339.0" layoutY="188.0" prefHeight="25.0" prefWidth="35.0" />
+       <TextField fx:id="fodselsar" layoutX="389.0" layoutY="188.0" prefHeight="25.0" prefWidth="59.0" />
       <TextField fx:id="epost" layoutX="299.0" layoutY="227.0" />
       <TextField fx:id="nummer" layoutX="299.0" layoutY="266.0" />
       <Label layoutX="211.0" layoutY="112.0" text="Navn">
@@ -30,7 +32,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="166.0" layoutY="190.0" text="Fødselsdato">
+      <Label layoutX="70.0" layoutY="190.0" text="Fødselsdato (dd/mm/yyyy)">
          <font>
             <Font size="15.0" />
          </font>
@@ -49,10 +51,15 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem fx:id="apneFil" mnemonicParsing="false" onAction="#TrykketApneFil" text="Åpne fil" />
-                  <MenuItem fx:id="lagreFil" mnemonicParsing="false" onAction="#TrykketLagreFil" text="Lagre fil" />
+                <MenuItem fx:id="apneFil" mnemonicParsing="false" onAction="#TrykketApneFil" text="Åpne fil" />
+                <MenuItem fx:id="lagreFil" mnemonicParsing="false" onAction="#TrykketLagreFil" text="Lagre fil" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Valider">
+                <items>
+                    <MenuItem fx:id="validerInput" mnemonicParsing="false" onAction="#TrykkValiderInput" text="Valider input" />
+                </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" text="Delete" />
@@ -65,5 +72,6 @@
           </Menu>
         </menus>
       </MenuBar>
+
    </children>
 </AnchorPane>
