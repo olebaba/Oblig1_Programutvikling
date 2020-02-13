@@ -6,18 +6,18 @@ public class Person {
 
     private String navn;
     private int alder;
-    private int fødselsdag;
-    private int fødselsmnd;
-    private int fødselsår;
+    private int fodselsdag;
+    private int fodselsmnd;
+    private int fodselsar;
     private String epost;
     private String telefonnummer;
 
-    public Person(String navn, int alder, int fødselsdag, int fødselsmnd, int fødselsår, String epost, String telefonnummer) throws InvalidAgeException {
+    public Person(String navn, int alder, int fodselsdag, int fodselsmnd, int fodselsar, String epost, String telefonnummer) throws InvalidAgeException {
         this.navn = navn;
         setAlder(alder);
-        this.fødselsdag = fødselsdag;
-        this.fødselsmnd = fødselsmnd;
-        this.fødselsår = fødselsår;
+        this.fodselsdag = fodselsdag;
+        this.fodselsmnd = fodselsmnd;
+        this.fodselsar = fodselsar;
         this.epost = epost;
         this.telefonnummer = telefonnummer;
     }
@@ -37,16 +37,16 @@ public class Person {
         return navn;
     }
 
-    public int getFødselsdag() {
-        return fødselsdag;
+    public int getFodselsdag() {
+        return fodselsdag;
     }
 
-    public int getFødselsmnd() {
-        return fødselsmnd;
+    public int getFodselsmnd() {
+        return fodselsmnd;
     }
 
-    public int getFødselsår() {
-        return fødselsår;
+    public int getFodselsar() {
+        return fodselsar;
     }
 
     public String getEpost() {

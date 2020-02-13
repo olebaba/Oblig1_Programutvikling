@@ -22,17 +22,17 @@ class ValideringTest {
 
     @Test
     void validerFodselsmnd() {
-        if(!Validering.validerFodselsmnd(person.getFødselsmnd())) System.out.println("Feil mnd!");
+        if(!Validering.validerFodselsmnd(person.getFodselsmnd())) System.out.println("Feil mnd!");
     }
 
     @Test
     void validerFodselsdag() {
-        if(!Validering.validerFodselsdag(person.getFødselsdag())) System.out.println("Feil dag!");
+        if(!Validering.validerFodselsdag(person.getFodselsdag())) System.out.println("Feil dag!");
     }
 
     @Test
     void validerFodselsar() {
-        if(!Validering.validerFodselsar(person.getFødselsår())) System.out.println("Feil år!");
+        if(!Validering.validerFodselsar(person.getFodselsar())) System.out.println("Feil ar!");
     }
 
     @Test
