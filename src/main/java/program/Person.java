@@ -1,6 +1,7 @@
 package program;
 
 import program.Exceptions.InvalidAgeException;
+import program.Exceptions.InvalidEmailException;
 
 public class Person {
 
@@ -51,6 +52,12 @@ public class Person {
 
     public String getEpost() {
         return epost;
+    }
+
+    public void setEpost(String epost) throws InvalidEmailException {
+        if(!Validering.validerEpost(epost)){
+            throw new InvalidEmailException("Dette går ikke!");
+        }
     }
 
     public String getTelefonnummer() {
