@@ -32,4 +32,28 @@ public class Person {
         }
         this.alder = alder;
     }
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public int getFødselsdag() {
+        return fødselsdag;
+    }
+
+    public int getFødselsmnd() {
+        return fødselsmnd;
+    }
+
+    public int getFødselsår() {
+        return fødselsår;
+    }
+
+    public String getEpost() {
+        return epost;
+    }
+
+    public String getTelefonnummer() {
+        return telefonnummer;
+    }
 }
