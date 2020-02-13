@@ -7,7 +7,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Window;
 
-import java.io.File;
+import java.io.*;
 
 public class MainAppController {
 
