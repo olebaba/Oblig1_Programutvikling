@@ -4,6 +4,20 @@ import java.time.Year;
 
 public class Validering {
 
+    public static String validerPerson(Person person){
+        StringBuilder out = new StringBuilder();
+
+        if(!validerNavn(person.getNavn())) out.append("Feil navn, ");
+        if(!validerAlder(person.getAlder())) out.append("Feil alder, ");
+        if(!validerFodselsmnd(person.getFodselsmnd())) out.append("Feil mnd, ");
+        if(!validerFodselsdag(person.getFodselsdag())) out.append("Feil dag, ");
+        if(!validerFodselsar(person.getFodselsar())) out.append("Feil år, ");
+        if(!validerEpost(person.getEpost())) out.append("Feil epost, ");
+        if(!validerTlf(person.getTelefonnummer())) out.append("Feil nummer.");
+
+        return out.toString();
+    }
+
     public static boolean validerAlder(int alder){
         return (alder > 0 && alder < 120);
     }
@@ -11,7 +25,7 @@ public class Validering {
     public static boolean validerNavn(String navn){
         return ((navn != null)
                 && (!navn.equals(""))
-                && (navn.matches("^[a-zæøåA-ZÆØÅ ]*$")));
+                && (navn.matches("^[a-zæoaA-ZÆoa ]*$")));
     }
 
     public static boolean validerFodselsmnd(int mnd){
