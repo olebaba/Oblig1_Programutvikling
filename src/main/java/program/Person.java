@@ -3,6 +3,7 @@ package program;
 import javafx.fxml.FXML;
 
 public class Person {
+
     private String navn;
     private int alder;
     private int fodselsdato;
