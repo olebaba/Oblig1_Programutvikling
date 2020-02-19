@@ -5,16 +5,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Window;
+import javafx.util.converter.IntegerStringConverter;
 import program.Exceptions.InvalidAgeException;
 import program.Person;
-import program.PersonRegister;
 import program.Validering;
 
 import java.io.*;
+import java.text.Format;
+import java.text.ParsePosition;
+import java.util.EventListener;
+import java.util.function.UnaryOperator;
+import java.util.logging.Level;
 
 public class MainAppController {
     @FXML
@@ -41,6 +46,14 @@ public class MainAppController {
     private MenuItem lagreFil;
     @FXML
     private MenuItem validerInput;
+
+    @FXML
+    public void initialize(){
+        alder.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            System.out.println(observableValue + ", " + oldValue + ", " + newValue);
+            if(newValue.equals("") || newValue.matches("[1-9][0-9]")) alder.setText("0");
+        });
+    }
 
     @FXML
     public void TrykketLagreFil(ActionEvent actionEvent) throws FileNotFoundException, IOException, ClassNotFoundException {
@@ -81,7 +94,7 @@ public class MainAppController {
     @FXML
     public void TrykkValiderInput(ActionEvent actionEvent) throws InvalidAgeException {
         Person person = new Person(navn.getText(), Integer.parseInt(alder.getText()),
-                Integer.parseInt(fodselsmnd.getText()), Integer.parseInt(fodselsdag.getText()),
+                Integer.parseInt(fodselsdag.getText()), Integer.parseInt(fodselsmnd.getText()),
                 Integer.parseInt(fodselsar.getText()), epost.getText(), nummer.getText());
 
         String feilmld = Validering.validerPerson(person);
