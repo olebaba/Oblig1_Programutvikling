@@ -15,6 +15,8 @@ import program.Validering;
 import java.io.*;
 import java.text.Format;
 import java.text.ParsePosition;
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.EventListener;
 import java.util.function.UnaryOperator;
 import java.util.logging.Level;
@@ -43,9 +45,6 @@ public class MainAppController {
 
     @FXML
     public void initialize(){
-        //unngar error i validering:
-        giveValue(alder);
-        giveValue(nummer);
 
         //kun mulig å sette alder til 0-99
         alder.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -53,19 +52,15 @@ public class MainAppController {
         });
 
         dato.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if(!t1) System.out.println(dato.getValue());
+            if(dato.getValue() != null) {
+                if (dato.getValue().getYear() > 2002) dato.setValue(LocalDate.of(2002, 1, 1));
+            }
         });
 
-    }
-
-    private void giveValue(TextField textField){ //sjekker om textField har mista fokus
-        textField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            Focus(t1, textField);
+        nummer.textProperty().addListener((observableValue, s, t1) -> {
+            if(!t1.matches("\\d|\\d{2}|\\d{3}|\\d{4}|\\d{5}|\\d{6}|\\d{7}|\\d{8}|^$")) nummer.setText(s);
         });
-    }
 
-    private void Focus(boolean value, TextField textField){ //legger inn 0 i textField om den er tom og har mista fokus
-        if(!value && textField.getText().equals("")) textField.setText("0");
     }
 
     @FXML
