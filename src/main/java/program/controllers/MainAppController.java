@@ -2,11 +2,9 @@ package program.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.converter.IntegerStringConverter;
@@ -27,11 +25,7 @@ public class MainAppController {
    @FXML
     private TextField alder;
    @FXML
-    private TextField fodselsdag;
-    @FXML
-    private TextField fodselsmnd;
-    @FXML
-    private TextField fodselsar;
+   private DatePicker dato;
    @FXML
     private TextField epost;
    @FXML
@@ -49,10 +43,29 @@ public class MainAppController {
 
     @FXML
     public void initialize(){
+        //unngar error i validering:
+        giveValue(alder);
+        giveValue(nummer);
+
+        //kun mulig å sette alder til 0-99
         alder.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            System.out.println(observableValue + ", " + oldValue + ", " + newValue);
-            if(newValue.equals("") || newValue.matches("[1-9][0-9]")) alder.setText("0");
+            if(!newValue.matches("\\d|\\d{2}|^$")) alder.setText(oldValue);
         });
+
+        dato.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+            if(!t1) System.out.println(dato.getValue());
+        });
+
+    }
+
+    private void giveValue(TextField textField){ //sjekker om textField har mista fokus
+        textField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+            Focus(t1, textField);
+        });
+    }
+
+    private void Focus(boolean value, TextField textField){ //legger inn 0 i textField om den er tom og har mista fokus
+        if(!value && textField.getText().equals("")) textField.setText("0");
     }
 
     @FXML
@@ -93,13 +106,29 @@ public class MainAppController {
 
     @FXML
     public void TrykkValiderInput(ActionEvent actionEvent) throws InvalidAgeException {
-        Person person = new Person(navn.getText(), Integer.parseInt(alder.getText()),
-                Integer.parseInt(fodselsdag.getText()), Integer.parseInt(fodselsmnd.getText()),
-                Integer.parseInt(fodselsar.getText()), epost.getText(), nummer.getText());
+        Alert alert;
 
-        String feilmld = Validering.validerPerson(person);
-        Alert alert = new Alert(Alert.AlertType.WARNING, feilmld);
-        alert.show();
+        try {
+            Person person = new Person(navn.getText(), Integer.parseInt(alder.getText()),
+                    dato.getValue().getDayOfMonth(), dato.getValue().getMonthValue(),
+                    dato.getValue().getYear(), epost.getText(), nummer.getText());
+
+            String feilmld = Validering.validerPerson(person);
+
+            if(!feilmld.isEmpty()) {
+                alert = new Alert(Alert.AlertType.WARNING, feilmld);
+            }else {
+                alert = new Alert(Alert.AlertType.CONFIRMATION, person.toString());
+            }
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.show();
+        }catch (Exception e){
+            alert = new Alert(Alert.AlertType.WARNING, "Fyll inn info! ");
+            alert.show();
+            System.out.println(e);
+        }
+
+
 
     }
 }

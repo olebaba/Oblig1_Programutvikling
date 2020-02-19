@@ -63,4 +63,17 @@ public class Person {
     public String getTelefonnummer() {
         return telefonnummer;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "navn='" + navn + '\'' +
+                ", alder=" + alder +
+                ", fodselsdag=" + fodselsdag +
+                ", fodselsmnd=" + fodselsmnd +
+                ", fodselsar=" + fodselsar +
+                ", epost='" + epost + '\'' +
+                ", telefonnummer='" + telefonnummer + '\'' +
+                '}';
+    }
 }
