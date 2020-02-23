@@ -25,5 +25,7 @@ public class MainApp extends Application {
         primaryStage.setTitle("JavaFX and Maven");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
     }
 }
