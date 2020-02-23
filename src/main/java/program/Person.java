@@ -1,18 +1,23 @@
 package program;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import program.Exceptions.*;
 
 public class Person {
 
-    private String navn;
-    private int alder;
-    private int fodselsdag;
-    private int fodselsmnd;
-    private int fodselsar;
-    private String epost;
-    private String telefonnummer;
+    private SimpleStringProperty navn = new SimpleStringProperty();
+    private SimpleIntegerProperty alder = new SimpleIntegerProperty();
+    private SimpleIntegerProperty fodselsdag = new SimpleIntegerProperty();
+    private SimpleIntegerProperty fodselsmnd = new SimpleIntegerProperty();
+    private SimpleIntegerProperty fodselsar = new SimpleIntegerProperty();
+    private SimpleStringProperty epost = new SimpleStringProperty();
+    private SimpleStringProperty telefonnummer = new SimpleStringProperty();
 
-    public Person(String navn, int alder, int fodselsdag, int fodselsmnd, int fodselsar, String epost, String telefonnummer) throws InvalidAgeException, InvalidEmailException, InvalidTlfException, InvalidDateException, InvalidNameException {
+    public Person(String navn, int alder, int fodselsdag, int fodselsmnd, int fodselsar, String epost,
+                  String telefonnummer) throws InvalidAgeException, InvalidEmailException, InvalidTlfException,
+            InvalidDateException, InvalidNameException {
         setNavn(navn);
         setAlder(alder);
         setFodselsdag(fodselsdag);
@@ -22,92 +27,94 @@ public class Person {
         setTelefonnummer(telefonnummer);    }
 
     public int getAlder() {
-        return alder;
+        return alder.getValue();
     }
 
     public void setAlder(int alder) throws InvalidAgeException {
         if(!Validering.validerAlder(alder)){
             throw new InvalidAgeException("Feil alder");
         }
-        this.alder = alder;
+        this.alder.set(alder);
     }
 
     public String getNavn() {
-        return navn;
+        return navn.getValue();
     }
 
     public void setNavn(String navn) throws InvalidNameException {
         if(!Validering.validerNavn(navn)){
             throw new InvalidNameException("navn fungerer ikke");
         }
-        this.navn = navn;
+        this.navn.set(navn);
     }
 
     public int getFodselsdag() {
-        return fodselsdag;
+        return fodselsdag.getValue();
     }
 
     public void setFodselsdag(int fodselsdag) throws InvalidDateException {
         if(!Validering.validerFodselsdag(fodselsdag)){
             throw new InvalidDateException("fodseldag fungerer ikke");
         }
-        this.fodselsdag = fodselsdag;
+        this.fodselsdag.set(fodselsdag);
     }
 
     public int getFodselsmnd() {
-        return fodselsmnd;
+        return fodselsmnd.getValue();
     }
 
     public void setFodselsmnd(int fodselsmnd) throws InvalidDateException {
         if(!Validering.validerFodselsmnd(fodselsmnd)){
             throw new InvalidDateException("fodselmnd fungerer ikke");
         }
-        this.fodselsmnd = fodselsmnd;
+        this.fodselsmnd.set(fodselsmnd);
     }
 
     public int getFodselsar() {
-        return fodselsar;
+        return fodselsar.getValue();
     }
 
     public void setFodselsar(int fodselsar) throws InvalidDateException {
         if(!Validering.validerFodselsar(fodselsar)){
             throw new InvalidDateException("fodselår fungerer ikke");
         }
-        this.fodselsar = fodselsar;
+        this.fodselsar.set(fodselsar);
     }
 
     public String getEpost() {
-        return epost;
+        return epost.getValue();
     }
 
     public void setEpost(String epost) throws InvalidEmailException {
         if(!Validering.validerEpost(epost)){
             throw new InvalidEmailException("Dette går ikke!");
         }
-        this.epost = epost;
+        this.epost.set(epost);
     }
 
     public String getTelefonnummer() {
-        return telefonnummer;
+        return telefonnummer.getValue();
     }
 
+    public SimpleStringProperty telefonnummerProperty(){return this.telefonnummer;}
+
     public void setTelefonnummer(String Telefonnummer) throws InvalidTlfException {
-        if(!Validering.validerTlf(telefonnummer)){
+        if(!Validering.validerTlf(Telefonnummer)){
             throw new InvalidTlfException("tlf går ikke!");
         }
-        this.telefonnummer = telefonnummer;
+        this.telefonnummer.set(Telefonnummer);
     }
 
     @Override
     public String toString() {
         return "Person{" +
-                "navn='" + navn + '\'' +
-                ", alder=" + alder +
-                ", fodselsdag=" + fodselsdag +
-                ", fodselsmnd=" + fodselsmnd +
-                ", fodselsar=" + fodselsar +
-                ", epost='" + epost + '\'' +
-                ", telefonnummer='" + telefonnummer + '\'' +
+                "navn='" + navn.getValue() + '\'' +
+                ", alder=" + alder.getValue() +
+                ", fodselsdag=" + fodselsdag.getValue() +
+                ", fodselsmnd=" + fodselsmnd.getValue() +
+                ", fodselsar=" + fodselsar.getValue() +
+                ", epost='" + epost.getValue() + '\'' +
+                ", telefonnummer='" + telefonnummer.getValue() + '\'' +
                 '}';
     }
 }

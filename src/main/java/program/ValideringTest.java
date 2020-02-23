@@ -3,11 +3,13 @@ package program;
 import org.junit.jupiter.api.Test;
 import program.Exceptions.InvalidAgeException;
 
+import java.io.IOException;
+
 class ValideringTest {
     PersonRegister person = new PersonRegister("ole", 20, 2, 27, 1999,
             "minmail@main.com", "98765432");
 
-    ValideringTest() throws InvalidAgeException {
+    ValideringTest() throws IOException {
     }
 
     @org.junit.jupiter.api.Test

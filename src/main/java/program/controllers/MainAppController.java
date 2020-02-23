@@ -7,19 +7,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.util.converter.IntegerStringConverter;
-import program.Exceptions.InvalidAgeException;
+import program.DataCollection;
+import program.Exceptions.*;
 import program.Person;
 import program.Validering;
 
 import java.io.*;
-import java.text.Format;
-import java.text.ParsePosition;
 import java.time.LocalDate;
-import java.time.Year;
-import java.util.EventListener;
-import java.util.function.UnaryOperator;
-import java.util.logging.Level;
 
 public class MainAppController {
     @FXML
@@ -33,7 +27,6 @@ public class MainAppController {
    @FXML
     private TextField nummer;
 
-
     @FXML
     private AnchorPane anchorpane;
     @FXML
@@ -44,7 +37,15 @@ public class MainAppController {
     private MenuItem validerInput;
 
     @FXML
+    private TableView tableView;
+
+    DataCollection collection = new DataCollection();
+
+    @FXML
     public void initialize(){
+
+        //binder collection til tableview
+        collection.attachTableView(tableView);
 
         //kun mulig å sette alder til 0-99
         alder.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -53,7 +54,7 @@ public class MainAppController {
 
         dato.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
             if(dato.getValue() != null) {
-                if (dato.getValue().getYear() > 2002) dato.setValue(LocalDate.of(2002, 1, 1));
+                if (dato.getValue().getYear() > LocalDate.now().getYear()) dato.setValue(LocalDate.now());
             }
         });
 
@@ -62,6 +63,7 @@ public class MainAppController {
         });
 
     }
+
 
     @FXML
     public void TrykketLagreFil(ActionEvent actionEvent) throws FileNotFoundException, IOException, ClassNotFoundException {
@@ -99,14 +101,19 @@ public class MainAppController {
         filValg.showOpenDialog(null);
     }
 
-    @FXML
-    public void TrykkValiderInput(ActionEvent actionEvent) throws InvalidAgeException {
+    public Person LagPerson() throws InvalidDateException, InvalidEmailException, InvalidTlfException,
+            InvalidNameException, InvalidAgeException {
+
+        return new Person(navn.getText(), Integer.parseInt(alder.getText()),
+                dato.getValue().getDayOfMonth(), dato.getValue().getMonthValue(),
+                dato.getValue().getYear(), epost.getText(), nummer.getText());
+    }
+
+    public boolean Valider() {
         Alert alert;
 
         try {
-            Person person = new Person(navn.getText(), Integer.parseInt(alder.getText()),
-                    dato.getValue().getDayOfMonth(), dato.getValue().getMonthValue(),
-                    dato.getValue().getYear(), epost.getText(), nummer.getText());
+            Person person = LagPerson();
 
             String feilmld = Validering.validerPerson(person);
 
@@ -117,13 +124,32 @@ public class MainAppController {
             }
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.show();
+            return true;
+
         }catch (Exception e){
             alert = new Alert(Alert.AlertType.WARNING, "Fyll inn info! ");
             alert.show();
             System.out.println(e);
+
+            return false;
         }
+    }
 
+    private void resetTxtFields() {
+        navn.setText("");
+        alder.setText("");
+        dato.setValue(null);
+        nummer.setText("");
+        epost.setText("");
+    }
 
+    public void trykkRegistrer(ActionEvent actionEvent) throws InvalidDateException, InvalidEmailException,
+            InvalidTlfException, InvalidNameException, InvalidAgeException {
 
+        if(Valider()) {
+
+            collection.addElement(LagPerson());
+            resetTxtFields();
+        }
     }
 }

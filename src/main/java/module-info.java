@@ -10,4 +10,6 @@ module program {
 
     exports program.controllers;
     opens program to javafx.graphics;
+
+    exports program.Exceptions;
 }
