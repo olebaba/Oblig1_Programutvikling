@@ -19,6 +19,8 @@ import java.io.File;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -165,14 +167,23 @@ public class MainAppController {
         }
     }
 
+    public void findMatch(String s){
+        String regex = sok.getText();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(s);
+
+        //if (matcher.matches()) return true;
+    }
+
     public void filtrer(ActionEvent actionEvent) {
 
-        if(filtrer.getValue().equals("")){
+
+        if(sok.getText().equals("")){
             tableView.setItems(collection.getList());
         }
         if(filtrer.getValue().equals("Navn")){
-            ObservableList<Person> people = collection.getList().stream().filter(x -> sok.getText().toLowerCase().
-                    contains(x.getNavn().toLowerCase())).
+            ObservableList<Person> people = collection.getList().stream().filter(x -> x.getNavn().
+                    contentEquals(sok.getText())).
                     collect(Collectors.toCollection(FXCollections::observableArrayList));
             tableView.setItems(people);
         }
@@ -189,7 +200,7 @@ public class MainAppController {
         }
         if(filtrer.getValue().equals("Nummer")){
             ObservableList<Person> people = collection.getList().stream().filter(x -> sok.getText().toLowerCase().
-                    contains(x.getTelefonnummer().toLowerCase())).
+                    matches(x.getTelefonnummer().toLowerCase())).
                     collect(Collectors.toCollection(FXCollections::observableArrayList));
             tableView.setItems(people);
         }
