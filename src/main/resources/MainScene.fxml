@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -21,31 +20,25 @@
          </font>
       </Label>
       <TextField fx:id="navn" layoutX="299.0" layoutY="110.0" />
-      <TextField fx:id="alder" layoutX="299.0" layoutY="145.0" />
-       <DatePicker fx:id="dato" layoutX="299.0" layoutY="187.0" prefHeight="26.0" prefWidth="149.0" />
-      <TextField fx:id="epost" layoutX="299.0" layoutY="227.0" />
-      <TextField fx:id="nummer" layoutX="299.0" layoutY="266.0" />
-      <Label layoutX="211.0" layoutY="112.0" text="Navn">
+       <DatePicker fx:id="dato" editable="false" layoutX="299.0" layoutY="150.0" prefHeight="26.0" prefWidth="149.0" />
+      <TextField fx:id="epost" layoutX="299.0" layoutY="190.0" />
+      <TextField fx:id="telefonnummer" layoutX="299.0" layoutY="230.0" />
+      <Label layoutX="211.0" layoutY="110.0" text="Navn">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="210.0" layoutY="147.0" prefHeight="21.0" prefWidth="37.0" text="Alder">
+      <Label layoutX="76.0" layoutY="153.0" text="Fødselsdato (dd.mm.yyyy)">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="76.0" layoutY="189.0" text="Fødselsdato (dd.mm.yyyy)">
+      <Label layoutX="209.0" layoutY="192.0" text="Epost">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="211.0" layoutY="229.0" text="Epost">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="189.0" layoutY="268.0" text="Nummer">
+      <Label layoutX="140.0" layoutY="232.0" text="Telefonnummer">
          <font>
             <Font size="15.0" />
          </font>
@@ -77,33 +70,18 @@
       </MenuBar>
       <TableView fx:id="tableView" layoutX="48.0" layoutY="306.0" prefHeight="200.0">
         <columns>
-            <TableColumn prefWidth="100.0" text="Navn">
-                <cellValueFactory>
-                    <PropertyValueFactory property="txtNavn" />
-                </cellValueFactory>
+            <TableColumn fx:id="navnCol" prefWidth="100.0" text="Navn">
             </TableColumn>
-            <TableColumn minWidth="0.0" prefWidth="100.0" text="Alder">
-                <cellValueFactory>
-                    <PropertyValueFactory property="intAlder" />
-                </cellValueFactory>
+            <TableColumn fx:id="alderCol" minWidth="0.0" prefWidth="100.0" text="Alder">
             </TableColumn>
-            <TableColumn minWidth="0.0" prefWidth="100.0" text="Fødselsdato">
-                <cellValueFactory>
-                    <PropertyValueFactory property="intDato" />
-                </cellValueFactory>
+            <TableColumn fx:id="datoCol" minWidth="0.0" prefWidth="100.0" text="Fødselsdato">
             </TableColumn>
-            <TableColumn minWidth="0.0" prefWidth="100.0" text="Epost">
-                <cellValueFactory>
-                    <PropertyValueFactory property="txtEpost" />
-                </cellValueFactory>
+            <TableColumn fx:id="epostCol" minWidth="0.0" prefWidth="100.0" text="Epost">
             </TableColumn>
-            <TableColumn minWidth="0.0" prefWidth="100.0" text="Telefonnummer">
-                <cellValueFactory>
-                    <PropertyValueFactory property="txtTelefonnummer" />
-                </cellValueFactory>
+            <TableColumn fx:id="nummerCol" minWidth="0.0" prefWidth="100.0" text="Telefonnummer">
             </TableColumn>
         </columns>
       </TableView>
-      <Button onAction="#trykkRegistrer" layoutX="449.0" layoutY="48.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="136.0" text="Registrer" />
+      <Button layoutX="448.0" layoutY="49.0" mnemonicParsing="false" onAction="#trykkRegistrer" prefHeight="38.0" prefWidth="136.0" text="Registrer" />
    </children>
 </AnchorPane>

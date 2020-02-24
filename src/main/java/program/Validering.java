@@ -1,5 +1,6 @@
 package program;
 
+import java.time.LocalDate;
 import java.time.Year;
 
 public class Validering {
@@ -9,9 +10,7 @@ public class Validering {
 
         if(!validerNavn(person.getNavn())) out.append("Feil navn, ");
         if(!validerAlder(person.getAlder())) out.append("Feil alder, ");
-        if(!validerFodselsmnd(person.getFodselsmnd())) out.append("Feil mnd, ");
-        if(!validerFodselsdag(person.getFodselsdag())) out.append("Feil dag, ");
-        if(!validerFodselsar(person.getFodselsar())) out.append("Feil år, ");
+        if(!validerDato(person.getDato())) out.append("Feil år, ");
         if(!validerEpost(person.getEpost())) out.append("Feil epost, ");
         if(!validerTlf(person.getTelefonnummer())) out.append("Feil nummer.");
 
@@ -19,7 +18,7 @@ public class Validering {
     }
 
     public static boolean validerAlder(int alder){
-        return (alder > 0 && alder < 120);
+        return (alder >= 0 && alder < 120);
     }
 
     public static boolean validerNavn(String navn){
@@ -28,16 +27,9 @@ public class Validering {
                 && (navn.matches("^[a-zæoaA-ZÆoa ]*$")));
     }
 
-    public static boolean validerFodselsmnd(int mnd){
-        return (mnd > 0 && mnd < 13);
-    }
-
-    public static boolean validerFodselsdag(int dag){
-        return (dag > 0 && dag < 32);
-    }
-
-    public static boolean validerFodselsar(int ar){
-        return (ar > 1900 && ar <= Integer.parseInt(String.valueOf(Year.now())));
+    public static boolean validerDato(LocalDate dato) {
+        //LocalDate ld = LocalDate.parse(dato);
+        return  (dato.getYear() > 1900 && dato.getYear() <= Integer.parseInt(String.valueOf(Year.now()))) ;
     }
 
     public static boolean validerEpost(String epost){

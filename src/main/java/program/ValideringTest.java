@@ -4,9 +4,10 @@ import org.junit.jupiter.api.Test;
 import program.Exceptions.InvalidAgeException;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 class ValideringTest {
-    PersonRegister person = new PersonRegister("ole", 20, 2, 27, 1999,
+    PersonRegister person = new PersonRegister("ole", LocalDate.now(),
             "minmail@main.com", "98765432");
 
     ValideringTest() throws IOException {
@@ -23,18 +24,8 @@ class ValideringTest {
     }
 
     @Test
-    void validerFodselsmnd() {
-        if(!Validering.validerFodselsmnd(person.getFodselsmnd())) System.out.println("Feil mnd!");
-    }
-
-    @Test
-    void validerFodselsdag() {
-        if(!Validering.validerFodselsdag(person.getFodselsdag())) System.out.println("Feil dag!");
-    }
-
-    @Test
-    void validerFodselsar() {
-        if(!Validering.validerFodselsar(person.getFodselsar())) System.out.println("Feil ar!");
+    void validerDato() {
+        if(!Validering.validerDato(person.getDato())) System.out.println("Feil år!");
     }
 
     @Test
