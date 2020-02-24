@@ -5,7 +5,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import program.Exceptions.*;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable{
 
     private SimpleStringProperty navn = new SimpleStringProperty();
     private SimpleIntegerProperty alder = new SimpleIntegerProperty();

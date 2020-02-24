@@ -11,9 +11,11 @@ import program.DataCollection;
 import program.Exceptions.*;
 import program.Person;
 import program.Validering;
+import java.io.File;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class MainAppController {
     @FXML
@@ -67,38 +69,30 @@ public class MainAppController {
 
     @FXML
     public void TrykketLagreFil(ActionEvent actionEvent) throws FileNotFoundException, IOException, ClassNotFoundException {
-        File nyFil = new File("test.txt");
-        /*try{
-            PrintWriter output = new PrintWriter(nyFil);
-            output.println("Zandra Max");
-            output.println(20);
-            output.close();
-        }catch (IOException ex){
-            System.out.println("Noe gikk feil");
-        }*/
         //Serialisering
-        String hei = "heihei";
+        File nyFil = new File("personer.txt");
+        Person person = LagPerson();
         FileOutputStream fileOutput = new FileOutputStream(nyFil);
         ObjectOutputStream output = new ObjectOutputStream(fileOutput);
-        output.writeObject(hei);
+        System.out.println(person.toString());
+        output.writeObject(person);
+
         output.close();
         fileOutput.close();
-/*
-        //de-serialisering
-        FileInputStream fileInput = new FileInputStream(nyFil);
-        ObjectInputStream input = new ObjectInputStream(fileInput);
-        String hei2 = "heihallo";
-        input.readObject();
-*/
     }
 
     @FXML
-    public void TrykketApneFil(ActionEvent actionEvent) {
-        //vet ikke om dette fungerer, lurer på om vi kanskje skal bruke scanner()?
+    public void TrykketApneFil(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
         FileChooser filValg = new FileChooser();
-        filValg.setTitle("Velg én eller flere *.txt-filer");
+        filValg.setTitle("Velg en *.txt-fil");
         filValg.getExtensionFilters().add(new ExtensionFilter("Text files", "*.txt"));
         filValg.showOpenDialog(null);
+
+        FileInputStream fileInput = new FileInputStream(String.valueOf(filValg));
+        ObjectInputStream input = new ObjectInputStream(fileInput);
+        
+        input.readObject();
+
     }
 
     public Person LagPerson() throws InvalidDateException, InvalidEmailException, InvalidTlfException,
