@@ -19,7 +19,9 @@ import java.io.File;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class MainAppController {
@@ -88,26 +90,30 @@ public class MainAppController {
         //Serialisering
         File nyFil = new File("personer.txt");
         Person person = LagPerson();
-        FileOutputStream fileOutput = new FileOutputStream(nyFil);
-        ObjectOutputStream output = new ObjectOutputStream(fileOutput);
-        System.out.println(person.toString());
-        output.writeObject(person.toString());
+        Writer fileWriter = new FileWriter(nyFil);
+        fileWriter.write(person.toString());
+        fileWriter.close();
 
-        output.close();
-        fileOutput.close();
+
     }
-
     @FXML
     public void TrykketApneFil(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
+
         FileChooser filValg = new FileChooser();
         filValg.setTitle("Velg en *.txt-fil");
         filValg.getExtensionFilters().add(new ExtensionFilter("Text files", "*.txt"));
-        filValg.showOpenDialog(null);
+        File valgtFil = filValg.showOpenDialog(null);
 
-        FileInputStream fileInput = new FileInputStream(String.valueOf(filValg));
-        ObjectInputStream input = new ObjectInputStream(fileInput);
-        
-        input.readObject();
+        Scanner scan = new Scanner(valgtFil);
+        //System.out.println(scan.nextLine());
+       while(scan.hasNext()){
+            String setning = scan.nextLine();
+            String deler[] = setning.split("(,)|(=)|(')");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate datoen = LocalDate.parse(deler[7],formatter);
+           Person person = new Person(deler[2], datoen , deler[10], deler[14]);
+                   collection.addElement(person);
+        }
 
     }
 
