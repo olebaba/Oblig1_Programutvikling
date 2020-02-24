@@ -19,6 +19,7 @@ import java.io.File;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.format.DateTimeFormatter;
@@ -89,11 +90,13 @@ public class MainAppController {
 
     @FXML
     public void TrykketLagreFil(ActionEvent actionEvent) throws FileNotFoundException, IOException, ClassNotFoundException {
-        //Serialisering
+        List<Person> liste = collection.getList();
         File nyFil = new File("personer.txt");
-        Person person = LagPerson();
-        Writer fileWriter = new FileWriter(nyFil);
-        fileWriter.write(person.toString());
+        Writer fileWriter = new FileWriter(nyFil, true);
+        for(Person p : liste){
+            fileWriter.write("\n" + p.toString());
+        }
+
         fileWriter.close();
 
 
@@ -107,15 +110,19 @@ public class MainAppController {
         File valgtFil = filValg.showOpenDialog(null);
 
         Scanner scan = new Scanner(valgtFil);
-        //System.out.println(scan.nextLine());
+
+        String[][] personer = new String[100][15];
+        int personnr = 0;
        while(scan.hasNext()){
             String setning = scan.nextLine();
-            String deler[] = setning.split("(,)|(=)|(')");
+            personer[personnr] = setning.split("(,)|(=)|(')");
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate datoen = LocalDate.parse(deler[7],formatter);
-           Person person = new Person(deler[2], datoen , deler[10], deler[14]);
+            LocalDate datoen = LocalDate.parse(personer[personnr][7],formatter);
+           Person person = new Person(personer[personnr][2], datoen , personer[personnr][10], personer[personnr][14]);
                    collection.addElement(person);
-        }
+           personnr++;
+       }
 
     }
 
@@ -178,12 +185,10 @@ public class MainAppController {
     public void filtrer(ActionEvent actionEvent) {
 
 
-        if(sok.getText().equals("")){
-            tableView.setItems(collection.getList());
-        }
+
         if(filtrer.getValue().equals("Navn")){
-            ObservableList<Person> people = collection.getList().stream().filter(x -> x.getNavn().
-                    contentEquals(sok.getText())).
+            ObservableList<Person> people = collection.getList().stream().filter(x -> x.getNavn().toLowerCase().
+                    contentEquals(sok.getText().toLowerCase())).
                     collect(Collectors.toCollection(FXCollections::observableArrayList));
             tableView.setItems(people);
         }
@@ -203,6 +208,10 @@ public class MainAppController {
                     matches(x.getTelefonnummer().toLowerCase())).
                     collect(Collectors.toCollection(FXCollections::observableArrayList));
             tableView.setItems(people);
+        }
+
+        if(sok.getText().isEmpty()){
+            tableView.setItems(collection.getList());
         }
     }
 }
