@@ -37,7 +37,7 @@ public class Validering {
     }
 
     public static boolean validerFodselsar(int ar){
-        return (ar > 1900 && ar < Integer.parseInt(String.valueOf(Year.now())));
+        return (ar > 1900 && ar <= Integer.parseInt(String.valueOf(Year.now())));
     }
 
     public static boolean validerEpost(String epost){

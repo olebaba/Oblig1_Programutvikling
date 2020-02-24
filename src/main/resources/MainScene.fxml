@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.controllers.MainAppController">
+<AnchorPane fx:id="anchorpane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.controllers.MainAppController">
    <children>
-      <Label layoutX="229.0" layoutY="28.0" text="Program!!">
+      <Label layoutX="120.0" layoutY="43.0" text="Registrer deg her">
          <font>
             <Font size="33.0" />
          </font>
@@ -56,7 +60,7 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Valider">
                 <items>
-                    <MenuItem fx:id="validerInput" mnemonicParsing="false" onAction="#TrykkValiderInput" text="Valider input" />
+                    <MenuItem fx:id="validerInput" mnemonicParsing="false" onAction="#Valider" text="Valider input" />
                 </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -71,5 +75,35 @@
           </Menu>
         </menus>
       </MenuBar>
+      <TableView fx:id="tableView" layoutX="48.0" layoutY="306.0" prefHeight="200.0">
+        <columns>
+            <TableColumn prefWidth="100.0" text="Navn">
+                <cellValueFactory>
+                    <PropertyValueFactory property="txtNavn" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn minWidth="0.0" prefWidth="100.0" text="Alder">
+                <cellValueFactory>
+                    <PropertyValueFactory property="intAlder" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn minWidth="0.0" prefWidth="100.0" text="Fødselsdato">
+                <cellValueFactory>
+                    <PropertyValueFactory property="intDato" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn minWidth="0.0" prefWidth="100.0" text="Epost">
+                <cellValueFactory>
+                    <PropertyValueFactory property="txtEpost" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn minWidth="0.0" prefWidth="100.0" text="Telefonnummer">
+                <cellValueFactory>
+                    <PropertyValueFactory property="txtTelefonnummer" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+      </TableView>
+      <Button onAction="#trykkRegistrer" layoutX="449.0" layoutY="48.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="136.0" text="Registrer" />
    </children>
 </AnchorPane>

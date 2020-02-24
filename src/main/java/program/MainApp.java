@@ -22,7 +22,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         //scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
-        primaryStage.setTitle("JavaFX and Maven");
+        primaryStage.setTitle("Registrer person :)");
         primaryStage.setScene(scene);
         primaryStage.show();
 
