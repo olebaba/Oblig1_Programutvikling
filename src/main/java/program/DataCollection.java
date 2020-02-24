@@ -8,12 +8,16 @@ public class DataCollection {
 
     private ObservableList<Person> list = FXCollections.observableArrayList();
 
-    public void attachTableView(TableView tv) {
+    public void attachTableView(TableView<Person> tv) {
         tv.setItems(list);
     }
 
     public void addElement(Person obj) {
         list.add(obj);
+    }
+
+    public ObservableList<Person> getList(){
+        return list;
     }
 
 }

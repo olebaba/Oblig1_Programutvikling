@@ -1,5 +1,7 @@
 package program.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +20,7 @@ import java.io.File;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class MainAppController {
     @FXML
@@ -28,6 +31,11 @@ public class MainAppController {
     private TextField epost;
    @FXML
     private TextField telefonnummer;
+
+   @FXML
+    private ChoiceBox<String> filtrer;
+   @FXML
+   private TextField sok;
 
     @FXML
     private AnchorPane anchorpane;
@@ -49,7 +57,7 @@ public class MainAppController {
     @FXML
     private TableColumn<DataCollection, String> epostCol;
 
-    @FXML private TableView<String> tableView;
+    @FXML private TableView<Person> tableView;
 
     DataCollection collection = new DataCollection();
 
@@ -83,7 +91,7 @@ public class MainAppController {
         FileOutputStream fileOutput = new FileOutputStream(nyFil);
         ObjectOutputStream output = new ObjectOutputStream(fileOutput);
         System.out.println(person.toString());
-        output.writeObject(person);
+        output.writeObject(person.toString());
 
         output.close();
         fileOutput.close();
@@ -148,6 +156,36 @@ public class MainAppController {
         if(Valider()) {
             collection.addElement(LagPerson());
             resetTxtFields();
+        }
+    }
+
+    public void filtrer(ActionEvent actionEvent) {
+
+        if(filtrer.getValue().equals("")){
+            tableView.setItems(collection.getList());
+        }
+        if(filtrer.getValue().equals("Navn")){
+            ObservableList<Person> people = collection.getList().stream().filter(x -> sok.getText().toLowerCase().
+                    contains(x.getNavn().toLowerCase())).
+                    collect(Collectors.toCollection(FXCollections::observableArrayList));
+            tableView.setItems(people);
+        }
+        if(filtrer.getValue().equals("Alder")){
+            ObservableList<Person> people = collection.getList().stream().filter(x -> Integer.parseInt(sok.getText())
+                    == ( x.getAlder())).collect(Collectors.toCollection(FXCollections::observableArrayList));
+            tableView.setItems(people);
+        }
+        if(filtrer.getValue().equals("Epost")){
+            ObservableList<Person> people = collection.getList().stream().filter(x -> sok.getText().toLowerCase().
+                    contains(x.getEpost().toLowerCase())).
+                    collect(Collectors.toCollection(FXCollections::observableArrayList));
+            tableView.setItems(people);
+        }
+        if(filtrer.getValue().equals("Nummer")){
+            ObservableList<Person> people = collection.getList().stream().filter(x -> sok.getText().toLowerCase().
+                    contains(x.getTelefonnummer().toLowerCase())).
+                    collect(Collectors.toCollection(FXCollections::observableArrayList));
+            tableView.setItems(people);
         }
     }
 }
