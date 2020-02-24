@@ -1,8 +1,10 @@
 package program.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
@@ -19,13 +21,11 @@ public class MainAppController {
     @FXML
     private TextField navn;
    @FXML
-    private TextField alder;
-   @FXML
    private DatePicker dato;
    @FXML
     private TextField epost;
    @FXML
-    private TextField nummer;
+    private TextField telefonnummer;
 
     @FXML
     private AnchorPane anchorpane;
@@ -37,20 +37,30 @@ public class MainAppController {
     private MenuItem validerInput;
 
     @FXML
-    private TableView tableView;
+    private TableColumn<DataCollection, String> navnCol;
+    @FXML
+    private TableColumn<DataCollection, String> alderCol;
+    @FXML
+    private TableColumn<DataCollection, String> datoCol;
+    @FXML
+    private TableColumn<DataCollection, String> nummerCol;
+    @FXML
+    private TableColumn<DataCollection, String> epostCol;
+
+    @FXML private TableView<String> tableView;
 
     DataCollection collection = new DataCollection();
 
     @FXML
     public void initialize(){
 
-        //binder collection til tableview
-        collection.attachTableView(tableView);
+        navnCol.setCellValueFactory(new PropertyValueFactory<DataCollection, String>("navn"));
+        alderCol.setCellValueFactory(new PropertyValueFactory<DataCollection, String>("alder"));
+        datoCol.setCellValueFactory(new PropertyValueFactory<DataCollection, String>("dato"));
+        epostCol.setCellValueFactory(new PropertyValueFactory<DataCollection, String>("epost"));
+        nummerCol.setCellValueFactory(new PropertyValueFactory<DataCollection, String>("telefonnummer"));
 
-        //kun mulig å sette alder til 0-99
-        alder.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if(!newValue.matches("\\d|\\d{2}|^$")) alder.setText(oldValue);
-        });
+        collection.attachTableView(tableView);
 
         dato.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
             if(dato.getValue() != null) {
@@ -58,12 +68,10 @@ public class MainAppController {
             }
         });
 
-        nummer.textProperty().addListener((observableValue, s, t1) -> {
-            if(!t1.matches("\\d|\\d{2}|\\d{3}|\\d{4}|\\d{5}|\\d{6}|\\d{7}|\\d{8}|^$")) nummer.setText(s);
+        telefonnummer.textProperty().addListener((observableValue, s, t1) -> {
+            if(!t1.matches("\\d|\\d{2}|\\d{3}|\\d{4}|\\d{5}|\\d{6}|\\d{7}|\\d{8}|^$")) telefonnummer.setText(s);
         });
-
     }
-
 
     @FXML
     public void TrykketLagreFil(ActionEvent actionEvent) throws FileNotFoundException, IOException, ClassNotFoundException {
@@ -104,9 +112,7 @@ public class MainAppController {
     public Person LagPerson() throws InvalidDateException, InvalidEmailException, InvalidTlfException,
             InvalidNameException, InvalidAgeException {
 
-        return new Person(navn.getText(), Integer.parseInt(alder.getText()),
-                dato.getValue().getDayOfMonth(), dato.getValue().getMonthValue(),
-                dato.getValue().getYear(), epost.getText(), nummer.getText());
+        return new Person(navn.getText(), dato.getValue(), epost.getText(), telefonnummer.getText());
     }
 
     public boolean Valider() {
@@ -137,9 +143,8 @@ public class MainAppController {
 
     private void resetTxtFields() {
         navn.setText("");
-        alder.setText("");
         dato.setValue(null);
-        nummer.setText("");
+        telefonnummer.setText("");
         epost.setText("");
     }
 
@@ -147,7 +152,6 @@ public class MainAppController {
             InvalidTlfException, InvalidNameException, InvalidAgeException {
 
         if(Valider()) {
-
             collection.addElement(LagPerson());
             resetTxtFields();
         }
